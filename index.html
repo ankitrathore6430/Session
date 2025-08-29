@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Telegram Session Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/gramjs/dist/telegram.min.js"></script>
+</head>
+<body>
+  <h2>Telegram Session Generator</h2>
+  <input type="text" id="phone" placeholder="Enter Phone Number">
+  <button onclick="sendCode()">Send OTP</button>
+  <br><br>
+  <input type="text" id="otp" placeholder="Enter OTP">
+  <button onclick="login()">Login</button>
+  <br><br>
+  <pre id="output"></pre>
+
+<script>
+  const { TelegramClient } = gramjs;
+  const { StringSession } = gramjs.sessions;
+  const { Api } = gramjs;
+
+  const apiId = 1778606;
+  const apiHash = "d2bdbdd125a7e1d83fdc27c51f3791c4";
+  const stringSession = new StringSession("");
+
+  const client = new TelegramClient(stringSession, apiId, apiHash, { connectionRetries: 5 });
+
+  async function sendCode() {
+    const phone = document.getElementById("phone").value;
+    await client.start({
+      phoneNumber: async () => phone,
+      password: async () => prompt("Enter 2FA password (if any):"),
+      phoneCode: async () => prompt("Enter the OTP you received:"),
+      onError: (err) => console.log(err),
+    });
+  }
+
+  async function login() {
+    await client.connect();
+    document.getElementById("output").textContent =
+      "Your Session String:\n\n" + client.session.save();
+  }
+</script>
+</body>
+</html>
