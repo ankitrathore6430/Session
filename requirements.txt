@@ -2,3 +2,4 @@ flask
 telethon
 gunicorn
 uvicorn
+Flask-Cors
