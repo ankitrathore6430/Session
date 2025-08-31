@@ -11,7 +11,9 @@
         input, button { width: 100%; padding: 12px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
         button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
         button:hover { background-color: #0056b3; }
-        #auth-fields { display: none; }
+        #auth-fields, #password-container, #success-actions { display: none; }
+        #success-actions button { background-color: #28a745; }
+        #success-actions button:hover { background-color: #218838; }
         #result { white-space: pre-wrap; word-wrap: break-word; background: #e9ecef; padding: 15px; border: 1px solid #ced4da; border-radius: 4px; font-family: "Courier New", Courier, monospace; }
         .error { color: #dc3545; }
         .success { color: #28a745; }
@@ -28,21 +30,37 @@
 
         <div id="auth-fields">
             <input id="code" type="text" placeholder="Verification Code">
-            <input id="password" type="password" placeholder="2FA Password (if any)">
+            <div id="password-container">
+                <input id="password" type="password" placeholder="2FA Password">
+            </div>
             <button onclick="generateSession()">Generate Session</button>
         </div>
 
         <pre id="result"></pre>
+        
+        <div id="success-actions">
+            <button id="copy-btn" onclick="copySession()">Copy Session TXT</button>
+            <button id="send-btn" onclick="sendToBot()">Send To Bot</button>
+        </div>
     </div>
 
     <script>
-        // IMPORTANT: Replace this with your actual deployed backend URL
+        // The API base URL is now set to your live Render service
         const API_BASE_URL = "https://session-vcc8.onrender.com";
 
+        // --- DOM Elements ---
         const phoneInput = document.getElementById("phone");
         const resultCode = document.getElementById("result");
         const authFields = document.getElementById("auth-fields");
         const phoneStep = document.getElementById("phone-step");
+        const passwordContainer = document.getElementById("password-container");
+        const successActions = document.getElementById("success-actions");
+        const copyBtn = document.getElementById("copy-btn");
+        const sendBtn = document.getElementById("send-btn");
+
+        // --- Global variables to store session data ---
+        let finalSessionString = '';
+        let userPhoneNumber = '';
 
         async function sendCode() {
             const phone = phoneInput.value;
@@ -51,19 +69,15 @@
                 resultCode.innerText = "❌ Please enter a phone number.";
                 return;
             }
-
             resultCode.className = '';
             resultCode.innerText = "Sending code...";
-
             try {
                 const res = await fetch(`${API_BASE_URL}/send_code`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({ phone })
                 });
-
                 const data = await res.json();
-
                 if (res.ok && data.status === "code_sent") {
                     resultCode.className = 'success';
                     resultCode.innerText = "✅ Code sent successfully. Please check Telegram.";
@@ -89,10 +103,8 @@
                 resultCode.innerText = "❌ Please enter the verification code.";
                 return;
             }
-
             resultCode.className = '';
             resultCode.innerText = "Verifying and generating session...";
-
             try {
                 const payload = { phone, code };
                 if (password) payload.password = password;
@@ -102,16 +114,21 @@
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(payload)
                 });
-
                 const data = await res.json();
 
                 if (res.ok && data.session) {
                     resultCode.className = 'success';
                     resultCode.innerText = `✅ Session Generated Successfully:\n\n${data.session}`;
+                    
+                    finalSessionString = data.session;
+                    userPhoneNumber = phone;
                     authFields.style.display = 'none';
+                    successActions.style.display = 'block';
+
                 } else if (data.error === "2FA_password_required") {
                     resultCode.className = 'error';
                     resultCode.innerText = "⚠️ 2FA Password is required. Please enter it and try again.";
+                    passwordContainer.style.display = 'block';
                 } else {
                     resultCode.className = 'error';
                     resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
@@ -121,6 +138,30 @@
                 resultCode.innerText = `❌ Network Error: ${error}`;
             }
         }
+        
+        function copySession() {
+            navigator.clipboard.writeText(finalSessionString).then(() => {
+                copyBtn.innerText = 'Copied!';
+                setTimeout(() => { copyBtn.innerText = 'Copy Session TXT'; }, 2000);
+            }, () => {
+                resultCode.className = 'error';
+                resultCode.innerText = '❌ Failed to copy.';
+            });
+        }
+        
+        function sendToBot() {
+            const botUsername = "Auto_Forwarding_Post_bot";
+            const command = `/session_string ${userPhoneNumber} ${finalSessionString}`;
+            
+            navigator.clipboard.writeText(command).then(() => {
+                sendBtn.innerText = 'Command Copied!';
+                setTimeout(() => { sendBtn.innerText = 'Send To Bot'; }, 2000);
+                window.open(`https://t.me/${botUsername}`, '_blank');
+            }, () => {
+                resultCode.className = 'error';
+                resultCode.innerText = '❌ Failed to copy command.';
+            });
+        }
     </script>
 </body>
-  </html>
+</html>
