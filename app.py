@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
@@ -8,6 +9,7 @@ API_ID = 1778606
 API_HASH = "d2bdbdd125a7e1d83fdc27c51f3791c4"
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # A simple in-memory dictionary to store client data between requests.
 # Note: This is not suitable for a multi-instance production environment.
