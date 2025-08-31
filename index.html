@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telethon Session Generator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 500px; margin: auto; padding: 20px; background-color: #f8f9fa; }
+        h1 { text-align: center; color: #333; }
+        .container { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 12px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        #auth-fields { display: none; }
+        #result { white-space: pre-wrap; word-wrap: break-word; background: #e9ecef; padding: 15px; border: 1px solid #ced4da; border-radius: 4px; font-family: "Courier New", Courier, monospace; }
+        .error { color: #dc3545; }
+        .success { color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Telethon Session</h1>
+
+        <div id="phone-step">
+            <input id="phone" type="tel" placeholder="Phone Number (e.g., +91XXXXXXXXXX)">
+            <button onclick="sendCode()">Send Code</button>
+        </div>
+
+        <div id="auth-fields">
+            <input id="code" type="text" placeholder="Verification Code">
+            <input id="password" type="password" placeholder="2FA Password (if any)">
+            <button onclick="generateSession()">Generate Session</button>
+        </div>
+
+        <pre id="result"></pre>
+    </div>
+
+    <script>
+        // IMPORTANT: Replace this with your actual deployed backend URL
+        const API_BASE_URL = "https://your-render-backend-url.onrender.com";
+
+        const phoneInput = document.getElementById("phone");
+        const resultCode = document.getElementById("result");
+        const authFields = document.getElementById("auth-fields");
+        const phoneStep = document.getElementById("phone-step");
+
+        async function sendCode() {
+            const phone = phoneInput.value;
+            if (!phone) {
+                resultCode.className = 'error';
+                resultCode.innerText = "❌ Please enter a phone number.";
+                return;
+            }
+
+            resultCode.className = '';
+            resultCode.innerText = "Sending code...";
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/send_code`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ phone })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.status === "code_sent") {
+                    resultCode.className = 'success';
+                    resultCode.innerText = "✅ Code sent successfully. Please check Telegram.";
+                    phoneStep.style.display = 'none';
+                    authFields.style.display = 'block';
+                } else {
+                    resultCode.className = 'error';
+                    resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultCode.className = 'error';
+                resultCode.innerText = `❌ Network Error: ${error}`;
+            }
+        }
+
+        async function generateSession() {
+            const phone = phoneInput.value;
+            const code = document.getElementById("code").value;
+            const password = document.getElementById("password").value;
+
+            if (!code) {
+                resultCode.className = 'error';
+                resultCode.innerText = "❌ Please enter the verification code.";
+                return;
+            }
+
+            resultCode.className = '';
+            resultCode.innerText = "Verifying and generating session...";
+
+            try {
+                const payload = { phone, code };
+                if (password) payload.password = password;
+
+                const res = await fetch(`${API_BASE_URL}/generate_session`, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.session) {
+                    resultCode.className = 'success';
+                    resultCode.innerText = `✅ Session Generated Successfully:\n\n${data.session}`;
+                    authFields.style.display = 'none';
+                } else if (data.error === "2FA_password_required") {
+                    resultCode.className = 'error';
+                    resultCode.innerText = "⚠️ 2FA Password is required. Please enter it and try again.";
+                } else {
+                    resultCode.className = 'error';
+                    resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultCode.className = 'error';
+                resultCode.innerText = `❌ Network Error: ${error}`;
+            }
+        }
+    </script>
+</body>
+  </html>
