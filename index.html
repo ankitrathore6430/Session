@@ -4,28 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telethon Session Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; max-width: 500px; margin: auto; padding: 20px; background-color: #f8f9fa; }
-        h1 { text-align: center; color: #333; }
-        .container { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        input, button { width: 100%; padding: 12px; margin-bottom: 15px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
-        button { background-color: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        #auth-fields, #password-container, #success-actions { display: none; }
-        #success-actions button { background-color: #28a745; }
-        #success-actions button:hover { background-color: #218838; }
-        #result { white-space: pre-wrap; word-wrap: break-word; background: #e9ecef; padding: 15px; border: 1px solid #ced4da; border-radius: 4px; font-family: "Courier New", Courier, monospace; }
-        .error { color: #dc3545; }
-        .success { color: #28a745; }
+        :root {
+            --primary-color-start: #007bff;
+            --primary-color-end: #0056b3;
+            --success-color-start: #28a745;
+            --success-color-end: #218838;
+            --secondary-color-start: #6c757d;
+            --secondary-color-end: #5a6268;
+            --error-color: #dc3545;
+            --text-color: #333;
+            --light-text-color: #f8f9fa;
+            --border-color: #ced4da;
+            --input-bg: #ffffff;
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --result-bg-dark: #2d3748; /* Dark code block background */
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: var(--container-bg);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: var(--input-bg);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color-start);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            font-size: 16px;
+            color: var(--light-text-color);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+        }
+        
+        #phone-step button, #auth-fields button {
+             background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%);
+        }
+        
+        /* --- Button Customization Starts --- */
+        #send-btn {
+            background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%); /* Main blue color */
+        }
+        
+        #copy-btn {
+            background-image: linear-gradient(to right, #28a745 0%, #218838 100%); /* Success green color */
+        }
+        /* --- Button Customization Ends --- */
+
+        .footer button {
+            background-image: linear-gradient(to right, #6c757d 0%, #5a6268 100%);
+        }
+
+        #auth-fields, #password-container, #success-actions {
+            display: none;
+        }
+
+        /* --- Result Box Optimization Starts --- */
+        #result {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: var(--result-bg-dark); /* Dark background */
+            color: var(--light-text-color);     /* Light text */
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: "Courier New", Courier, monospace;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6; /* Improved readability */
+        }
+        /* --- Result Box Optimization Ends --- */
+
+        .error { color: var(--error-color); font-weight: 500; }
+        .success { color: var(--success-color-start); font-weight: 500; }
+
+        .footer {
+            border-top: 1px solid var(--border-color);
+            margin-top: 20px;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer a {
+            text-decoration: none;
+        }
+        
+        .footer a:last-child button {
+             margin-bottom: 0;
+        }
+
+        button svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        button span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Generate Telethon Session</h1>
+        <h1>Auto Forwarding Post Bot</h1>
 
         <div id="phone-step">
             <input id="phone" type="tel" placeholder="Phone Number (e.g., +91XXXXXXXXXX)">
-            <button onclick="sendCode()">Send Code</button>
+            <button onclick="sendCode()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                <span>Send Code</span>
+            </button>
         </div>
 
         <div id="auth-fields">
@@ -33,14 +188,56 @@
             <div id="password-container">
                 <input id="password" type="password" placeholder="2FA Password">
             </div>
-            <button onclick="generateSession()">Generate Session</button>
+            <button onclick="generateSession()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
+                <span>Login Now</span>
+            </button>
         </div>
 
         <pre id="result"></pre>
         
         <div id="success-actions">
-            <button id="copy-btn" onclick="copySession()">Copy Session TXT</button>
-            <button id="send-btn" onclick="sendToBot()">Send To Bot</button>
+            <button id="send-btn" onclick="sendToBot()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 00-5.84-2.56m0 0a14.982 14.982 0 01-5.84 2.56m5.84-2.56V4.72a14.987 14.987 0 00-5.84-2.56h.001" /></svg>
+                <span>Connect To Bot</span>
+            </button>
+            <button id="copy-btn" onclick="copySession()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+                <span>Copy Session TXT</span>
+            </button>
+        </div>
+
+        <div class="footer">
+            <a href="https://t.me/Ankitrathore" target="_blank" rel="noopener noreferrer">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <span>Contact Admin</span>
+                </button>
+            </a>
+            <a href="https://t.me/Auto_Forwarding_Post_bot" target="_blank" rel="noopener noreferrer">
+                <button>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    <span>Auto Forwarding Bot</span>
+                </button>
+            </a>
+             <a href="https://t.me/Instagram_vdownloder_bot" target="_blank" rel="noopener noreferrer">
+                <button>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    <span>Instagram Reels Downloader</span>
+                </button>
+            </a>
+             <a href="https://t.me/ReferAndEarn_upi_bot" target="_blank" rel="noopener noreferrer">
+                <button>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    <span>Refer And Earn Upi</span>
+                </button>
+            </a>
+            <a href="https://t.me/YOUTUBE_MP3_DOWNLODER" target="_blank" rel="noopener noreferrer">
+                <button>
+                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    <span>YouTube Downloader Bot</span>
+                </button>
+            </a>
         </div>
     </div>
 
@@ -55,8 +252,8 @@
         const phoneStep = document.getElementById("phone-step");
         const passwordContainer = document.getElementById("password-container");
         const successActions = document.getElementById("success-actions");
-        const copyBtn = document.getElementById("copy-btn");
-        const sendBtn = document.getElementById("send-btn");
+        const copyBtn = document.getElementById("copy-btn").querySelector("span");
+        const sendBtn = document.getElementById("send-btn").querySelector("span");
 
         // --- Global variables to store session data ---
         let finalSessionString = '';
@@ -155,7 +352,9 @@
             
             navigator.clipboard.writeText(command).then(() => {
                 sendBtn.innerText = 'Command Copied!';
-                setTimeout(() => { sendBtn.innerText = 'Send To Bot'; }, 2000);
+                // --- Javascript Change Starts ---
+                setTimeout(() => { sendBtn.innerText = 'Connect To Bot'; }, 2000);
+                // --- Javascript Change Ends ---
                 window.open(`https://t.me/${botUsername}`, '_blank');
             }, () => {
                 resultCode.className = 'error';
