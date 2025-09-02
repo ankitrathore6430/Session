@@ -21,7 +21,7 @@
             --border-color: #ced4da;
             --input-bg: #ffffff;
             --container-bg: rgba(255, 255, 255, 0.85);
-            --result-bg-dark: #2d3748; /* Dark code block background */
+            --result-bg-dark: #2d3748;
         }
 
         body {
@@ -104,6 +104,10 @@
              background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%);
         }
 
+        #login-btn {
+            background-image: linear-gradient(to right, #9d50bb 0%, #6e48aa 100%);
+        }
+        
         #send-btn {
             background-image: linear-gradient(to right, #007bff 0%, #0056b3 100%);
         }
@@ -118,6 +122,14 @@
 
         #auth-fields, #password-container, #success-actions {
             display: none;
+        }
+        
+        .info-text {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--secondary-color-end);
+            font-weight: 500;
         }
 
         #result {
@@ -153,8 +165,40 @@
         .footer a:last-child button {
              margin-bottom: 0;
         }
+        
+        /* --- UPDATE: Styles for the new Informational Footer Guide --- */
+        #info-footer {
+            display: none;
+            border-top: 1px solid var(--border-color);
+            margin-top: 20px;
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: var(--secondary-color-end);
+            line-height: 1.6;
+        }
+        #info-footer h3 {
+            text-align: center;
+            color: var(--text-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        #info-footer ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #info-footer li {
+            margin-bottom: 10px;
+        }
+        #info-footer li strong {
+            font-weight: 600;
+        }
+        .info-login { color: #9d50bb; }
+        .info-connect { color: #007bff; }
+        .info-copy { color: #28a745; }
 
-        /* --- UPDATE: Copyright Styling Added --- */
+
         .copyright {
             text-align: center;
             margin-top: 25px;
@@ -201,10 +245,18 @@
         <pre id="result"></pre>
         
         <div id="success-actions">
+            <p class="info-text">👇Bot में Login Code भेजे नीचे क्लिक करें👇</p>
+            
+            <button id="login-btn" onclick="loginToBot()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                <span>Login To Bot</span>
+            </button>
+
             <button id="send-btn" onclick="sendToBot()">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.82m5.84-2.56a14.98 14.98 0 00-5.84-2.56m0 0a14.982 14.982 0 01-5.84 2.56m5.84-2.56V4.72a14.987 14.987 0 00-5.84-2.56h.001" /></svg>
                 <span>Connect To Bot</span>
             </button>
+
             <button id="copy-btn" onclick="copySession()">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
                 <span>Copy Session TXT</span>
@@ -212,11 +264,20 @@
         </div>
 
         <div class="footer">
-            <a href="https://t.me/Ankitrathore" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Contact Admin</span></button></a>
+             <a href="https://t.me/Ankitrathore" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Contact Admin</span></button></a>
             <a href="https://t.me/Auto_Forwarding_Post_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Auto Forwarding Post Bot</span></button></a>
             <a href="https://t.me/Instagram_vdownloder_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Instagram Reels Downloader Bot</span></button></a>
             <a href="https://t.me/ReferAndEarn_upi_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Refer And Earn Upi Bot</span></button></a>
             <a href="https://t.me/YOUTUBE_MP3_DOWNLODER" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>YouTube Downloader Bot</span></button></a>
+        </div>
+
+        <div id="info-footer">
+            <h3>बटन की जानकारी (Button Guide)</h3>
+            <ul>
+                <li><strong class="info-login">Login To Bot:</strong> इस बटन से आप जेनरेट हुए कोड को किसी भी बॉट या यूजर को भेज सकते हैं। यह टेलीग्राम का शेयर मेनू खोलेगा।</li>
+                <li><strong class="info-connect">Connect To Bot:</strong> यह बटन सीधे हमारे मुख्य बॉट (@Auto_Forwarding_Post_bot) के साथ चैट खोलेगा और आपका कोड मैसेज बॉक्स में अपने आप लिख देगा।</li>
+                <li><strong class="info-copy">Copy Session TXT:</strong> अगर आप कोड को कहीं और सेव करना चाहते हैं, तो इस बटन से आप सिर्फ सेशन स्ट्रिंग को कॉपी कर सकते हैं।</li>
+            </ul>
         </div>
 
         <div class="copyright">
@@ -225,10 +286,9 @@
     </div>
 
     <script>
-        // The API base URL is now set to your live Render service
         const API_BASE_URL = "https://session-vcc8.onrender.com";
 
-        // --- DOM Elements ---
+        // DOM Elements
         const phoneInput = document.getElementById("phone");
         const resultCode = document.getElementById("result");
         const authFields = document.getElementById("auth-fields");
@@ -237,8 +297,12 @@
         const successActions = document.getElementById("success-actions");
         const copyBtnSpan = document.getElementById("copy-btn").querySelector("span");
         const sendBtnSpan = document.getElementById("send-btn").querySelector("span");
+        const loginBtnSpan = document.getElementById("login-btn").querySelector("span");
+        
+        const originalFooter = document.querySelector(".footer");
+        const infoFooter = document.getElementById("info-footer");
 
-        // --- Global variables to store session data ---
+        // Global variables
         let finalSessionString = '';
         let userPhoneNumber = '';
 
@@ -268,7 +332,6 @@
                     resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
                 }
             } catch (error) {
-                // UPDATE: Added console logging for better debugging
                 console.error("sendCode Error:", error);
                 resultCode.className = 'error';
                 resultCode.innerText = `❌ Network Error: Could not connect to the server.`;
@@ -306,6 +369,9 @@
                     userPhoneNumber = phone;
                     authFields.style.display = 'none';
                     successActions.style.display = 'block';
+                    
+                    originalFooter.style.display = 'none';
+                    infoFooter.style.display = 'block';
 
                 } else if (data.error === "2FA_password_required") {
                     resultCode.className = 'error';
@@ -316,7 +382,6 @@
                     resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
                 }
             } catch (error) {
-                // UPDATE: Added console logging for better debugging
                 console.error("generateSession Error:", error);
                 resultCode.className = 'error';
                 resultCode.innerText = `❌ Network Error: Could not connect to the server.`;
@@ -337,19 +402,31 @@
             const botUsername = "Auto_Forwarding_Post_bot";
             const command = `/session_string ${userPhoneNumber} ${finalSessionString}`;
             
-            // Function 1: Copy the command to the clipboard (as a backup)
             navigator.clipboard.writeText(command).then(() => {
                 sendBtnSpan.innerText = 'Command Copied!';
                 setTimeout(() => { sendBtnSpan.innerText = 'Connect To Bot'; }, 2000);
             }).catch(err => {
-                // UPDATE: Added console logging for better debugging
                 console.error('Failed to copy command: ', err);
             });
 
-            // Function 2: Open Telegram with the command pre-filled
             const encodedCommand = encodeURIComponent(command);
             const telegramUrl = `https://t.me/${botUsername}?text=${encodedCommand}`;
             window.open(telegramUrl, '_blank');
+        }
+
+        function loginToBot() {
+            const command = `/session_string ${userPhoneNumber} ${finalSessionString}`;
+            
+            navigator.clipboard.writeText(command).then(() => {
+                loginBtnSpan.innerText = 'Copied & Sharing...';
+                setTimeout(() => { loginBtnSpan.innerText = 'Login To Bot'; }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy command: ', err);
+            });
+
+            const encodedCommand = encodeURIComponent(command);
+            const telegramShareUrl = `https://t.me/share/url?text=${encodedCommand}`;
+            window.open(telegramShareUrl, '_blank');
         }
     </script>
 </body>
