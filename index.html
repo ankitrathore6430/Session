@@ -216,6 +216,32 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        .reset-info {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #reset-btn {
+            background-image: linear-gradient(to right, #ff7e5f 0%, #feb47b 100%);
+            margin-top: 0; 
+            box-shadow: 0 4px 15px rgba(255, 126, 95, 0.4);
+            color: white;
+        }
+        
+        #reset-btn:hover {
+             background-image: linear-gradient(to right, #ff6b4a 0%, #fda762 100%);
+             transform: translateY(-3px);
+             box-shadow: 0 8px 20px rgba(255, 126, 95, 0.6);
+        }
     </style>
 </head>
 <body>
@@ -262,14 +288,6 @@
             </button>
         </div>
         
-        <div class="footer">
-             <a href="https://t.me/Ankitrathore" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Contact Admin</span></button></a>
-            <a href="https://t.me/Auto_Forwarding_Post_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Auto Forwarding Post Bot</span></button></a>
-            <a href="https://t.me/Instagram_vdownloder_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Instagram Reels Downloader Bot</span></button></a>
-            <a href="https://t.me/ReferAndEarn_upi_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Refer And Earn Upi Bot</span></button></a>
-            <a href="https://t.me/YOUTUBE_MP3_DOWNLODER" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>YouTube Downloader Bot</span></button></a>
-        </div>
-
         <div id="info-footer">
             <h3>बटन की जानकारी (Button Guide)</h3>
             <ul>
@@ -277,6 +295,25 @@
                 <li><strong class="info-connect">Connect To Bot:</strong> यह बटन सीधे हमारे मुख्य बॉट (@Auto_Forwarding_Post_bot) के साथ चैट खोलेगा और आपका कोड मैसेज बॉक्स में अपने आप लिख देगा।</li>
                 <li><strong class="info-copy">Copy Session TXT:</strong> अगर आप कोड को कहीं और सेव करना चाहते हैं, तो इस बटन से आप सिर्फ सेशन स्ट्रिंग को कॉपी कर सकते हैं।</li>
             </ul>
+        </div>
+
+        <p class="reset-info">
+            👇अपना नंबर बदले / Change Your Number.👇
+        </p>
+
+        <button id="reset-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.181-3.183m-11.664 0l4.992-4.993m-4.993 0l-3.181 3.183a8.25 8.25 0 000 11.664l3.181 3.183" />
+            </svg>
+            <span>Refresh / फिर से शुरू करें</span>
+        </button>
+
+        <div class="footer">
+             <a href="https://t.me/Ankitrathore" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>Contact Admin</span></button></a>
+            <a href="https://t.me/Auto_Forwarding_Post_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Auto Forwarding Post Bot</span></button></a>
+            <a href="https://t.me/Instagram_vdownloder_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Instagram Reels Downloader Bot</span></button></a>
+            <a href="https://t.me/ReferAndEarn_upi_bot" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>Refer And Earn Upi Bot</span></button></a>
+            <a href="https://t.me/YOUTUBE_MP3_DOWNLODER" target="_blank" rel="noopener noreferrer"><button><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg><span>YouTube Downloader Bot</span></button></a>
         </div>
 
         <div class="copyright">
@@ -300,6 +337,7 @@
         const copyBtnSpan = document.getElementById("copy-btn").querySelector("span");
         const sendBtnSpan = document.getElementById("send-btn").querySelector("span");
         const loginBtnSpan = document.getElementById("login-btn").querySelector("span");
+        const resetBtn = document.getElementById("reset-btn");
         
         const originalFooter = document.querySelector(".footer");
         const infoFooter = document.getElementById("info-footer");
@@ -316,6 +354,42 @@
                 loginToken = token;
                 console.log("Login token found:", loginToken);
                 resultCode.innerText = "Please enter your phone number to log in to the bot.";
+            }
+
+            try {
+                const savedStep = localStorage.getItem('currentStep');
+                const savedPhone = localStorage.getItem('userPhoneNumber');
+
+                if (savedStep === 'awaitingCode' && savedPhone) {
+                    console.log("Restoring state from localStorage.");
+                    
+                    phoneInput.value = savedPhone;
+                    phoneStep.style.display = 'none';
+                    authFields.style.display = 'block';
+
+                    resultCode.className = 'success';
+                    resultCode.innerText = `Welcome back! Please enter the code sent to ${savedPhone}.`;
+                } else if (savedStep === 'sessionGenerated' && savedPhone) {
+                    console.log("Restoring session generated state from localStorage.");
+                    const savedSession = localStorage.getItem('finalSessionString');
+
+                    if (savedSession) {
+                        userPhoneNumber = savedPhone;
+                        finalSessionString = savedSession;
+
+                        phoneStep.style.display = 'none';
+                        authFields.style.display = 'none';
+                        
+                        resultCode.className = 'success';
+                        resultCode.innerText = `✅ Session Generated Successfully:\n\n${savedSession}`;
+                        
+                        successActions.style.display = 'block';
+                        originalFooter.style.display = 'none';
+                        infoFooter.style.display = 'block';
+                    }
+                }
+            } catch (e) {
+                console.error("Could not restore from localStorage", e);
             }
         });
 
@@ -340,6 +414,14 @@
                     resultCode.innerText = "✅ Code sent successfully. Please check Telegram.";
                     phoneStep.style.display = 'none';
                     authFields.style.display = 'block';
+
+                    try {
+                        localStorage.setItem('userPhoneNumber', phone);
+                        localStorage.setItem('currentStep', 'awaitingCode');
+                        console.log("State saved to localStorage.");
+                    } catch (e) {
+                        console.error("Could not save to localStorage", e);
+                    }
                 } else {
                     resultCode.className = 'error';
                     resultCode.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
@@ -378,6 +460,15 @@
                     finalSessionString = data.session;
                     userPhoneNumber = phone;
                     authFields.style.display = 'none';
+
+                    try {
+                        localStorage.setItem('userPhoneNumber', phone);
+                        localStorage.setItem('finalSessionString', data.session);
+                        localStorage.setItem('currentStep', 'sessionGenerated');
+                        console.log("Session state saved to localStorage.");
+                    } catch (e) {
+                        console.error("Could not save session state", e);
+                    }
 
                     if (loginToken) {
                         await submitSessionToBot(phone, data.session, loginToken);
@@ -421,15 +512,17 @@
 
                 const data = await res.json();
                 if (res.ok) {
-                    // --- बदला हुआ हिस्सा ---
                     resultCode.className = 'success';
                     resultCode.innerText = "✅ Success! Your account is connected.\n\nRedirecting you to the bot now...";
                     
-                    // 2 सेकंड के बाद बॉट पर रीडायरेक्ट करें
+                    try {
+                        localStorage.clear();
+                        console.log("Cleared localStorage after successful submission.");
+                    } catch(e) { console.error(e); }
+
                     setTimeout(() => {
                         window.location.href = `https://t.me/${BOT_USERNAME}`;
                     }, 2000); 
-                    // --- बदलाव का अंत ---
                 } else {
                     resultCode.className = 'error';
                     resultCode.innerText = `❌ Bot Error: ${data.message || 'Failed to connect to bot.'}`;
@@ -462,7 +555,7 @@
             });
 
             const encodedCommand = encodeURIComponent(command);
-            const telegramUrl = `https://t.me/${BOT_USERNAME}?text=${encodedCommand}`; // Updated to use constant
+            const telegramUrl = `https://t.me/${BOT_USERNAME}?text=${encodedCommand}`;
             window.open(telegramUrl, '_blank');
         }
 
@@ -480,6 +573,21 @@
             const telegramShareUrl = `https://t.me/share/url?text=${encodedCommand}`;
             window.open(telegramShareUrl, '_blank');
         }
+
+        resetBtn.addEventListener('click', () => {
+            try {
+                localStorage.clear();
+                console.log("Local storage cleared.");
+            } catch (e) {
+                console.error("Could not clear localStorage", e);
+            }
+
+            if (loginToken) {
+                location.reload();
+            } else {
+                window.location.href = window.location.pathname;
+            }
+        });
     </script>
 </body>
 </html>
