@@ -7,6 +7,7 @@
     },
     "recipients": [
       1531736597
-    ]
+    ],
+    "bulk_delay": 6
   }
 }
