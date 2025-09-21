@@ -1,5 +1,6 @@
 {
   "+916395503566": {
-    "message": "**search**"
+    "message": "**search**",
+    "cooldown": 5
   }
 }
