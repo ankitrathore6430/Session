@@ -1,7 +1,7 @@
 {
   "+916395503566": {
     "message": "**search**",
-    "cooldown": 50,
+    "cooldown": 0,
     "last_replied_to": {
       "1531736597": 1758434323.04842
     },
