@@ -8,6 +8,8 @@
       -1001303539818,
       -1001281137328
     ],
-    "controller_id": 745211839
+    "controller_id": 745211839,
+    "min_delay": 50,
+    "max_delay": 55
   }
 }
