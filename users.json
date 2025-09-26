@@ -13,8 +13,8 @@
     "controller_id": 745211839,
     "min_delay": 0,
     "max_delay": 0,
-    "plan_expiry_date": "2025-10-03T06:06:32.362523",
-    "plan_id": "trial"
+    "plan_expiry_date": null,
+    "plan_id": "free"
   },
   "+919310712068": {
     "sources": [
