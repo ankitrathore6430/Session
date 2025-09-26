@@ -10,7 +10,9 @@
     ],
     "controller_id": 745211839,
     "min_delay": 0,
-    "max_delay": 0
+    "max_delay": 0,
+    "plan_expiry_date": "2025-09-30T05:46:40.191130",
+    "plan_id": "silver"
   },
   "+919310712068": {
     "sources": [
