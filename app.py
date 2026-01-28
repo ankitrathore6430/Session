@@ -5,8 +5,8 @@ from telethon.sessions import StringSession
 from telethon.errors import SessionPasswordNeededError, PhoneCodeInvalidError
 import os
 
-API_ID = 4
-API_HASH = "e10319191e345475d609695679415667"
+API_ID = 1778606
+API_HASH = "d2bdbdd125a7e1d83fdc27c51f3791c4"
 
 app = Flask(__name__)
 CORS(app)
